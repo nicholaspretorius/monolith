@@ -1,19 +1,15 @@
-const db = () => {
-  const config = {
-    data: false
-  };
+require("dotenv").config();
+const server = require("express")();
+
+const PORT = process.env.DB_PORT || 3000;
+
+server.get("/", (req, res) => {
   const data = [
     { title: "Hello world!", content: "This is my first blog post. Yay!" }
   ];
+  res.json(data);
+});
 
-  if (config.data) {
-    return data;
-  } else {
-    // simulating app crash ... even though 'only db' crashed, whole app crashes
-    process.exit(1);
-  }
-};
-
-module.exports = {
-  db
-};
+server.listen(PORT, () => {
+  console.log(`DB Connector listening on ${PORT}...`);
+});
